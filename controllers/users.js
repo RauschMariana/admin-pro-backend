@@ -1,17 +1,33 @@
-const User = require('../models/user');
 const { response } = require('express');
 const bcrypt = require('bcryptjs');
+const User = require('../models/user');
 const { generateJWT } = require('../helpers/jwt');
 
 const getUsers = async (req, res) => {
 
-    const users = await User.find();
+    const from = Number(req.query.from) || 0;
 
-    res.json({ 
-        ok: true,
-        users,
-        // uid: req.uid : Muestra el id del usuario que hizo la petición
-    });
+    await Promise.all([
+        User
+            .find({}, 'name email role google img')
+            .skip(from)
+            .limit(5),
+        User.countDocuments()
+    ])
+        .then( ( [users, total] ) => {
+            res.json({ 
+                ok: true,
+                users,
+                total
+                // uid: req.uid : Muestra el id del usuario que hizo la petición
+            });
+        })
+        .catch( err => {
+            res.status(500).json({ 
+                ok: false,
+                msg: 'Error inesperado'
+            });
+        });
 }
 
 const createUser = async (req, res = response) => {

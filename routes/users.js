@@ -4,11 +4,14 @@
 
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { getUsers, createUser, updateUser, deleteUser } = require('../controllers/users');
+const { 
+    getUsers, 
+    createUser, 
+    updateUser, 
+    deleteUser 
+} = require('../controllers/users');
 const { validateFields } = require('../middlewares/validate-field');
 const { validateJWT } = require('../middlewares/validate-jwt');
-
-
 
 const router = Router();
 
