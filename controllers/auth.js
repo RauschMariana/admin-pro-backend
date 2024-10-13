@@ -1,6 +1,6 @@
-const User = require('../models/user');
 const { response } = require('express');
 const bcrypt = require('bcryptjs');
+const User = require('../models/user');
 const { generateJWT } = require('../helpers/jwt');
 
 const login = async (req, res = response) => {
