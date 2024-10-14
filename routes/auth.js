@@ -3,8 +3,9 @@
  */
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { login, googleSignIn } = require('../controllers/auth');
+const { login, googleSignIn, renewToken } = require('../controllers/auth');
 const { validateFields } = require('../middlewares/validate-field');
+const { validateJWT } = require('../middlewares/validate-jwt');
 
 
 
@@ -14,7 +15,7 @@ router.post(
     '/', 
     [
         check('email', 'El correo es obligatorio').isEmail(),
-        check('password', 'La contraseña es obligatoria'),
+        check('password', 'La contraseña es obligatoria').not().isEmpty(),
         validateFields
     ], 
     login
@@ -27,6 +28,12 @@ router.post(
         validateFields
     ], 
     googleSignIn
+);
+
+router.get(
+    '/renew',
+    validateJWT, 
+    renewToken
 );
 
 

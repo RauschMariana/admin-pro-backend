@@ -42,6 +42,8 @@ const updateHospital = async(req, res = response) => {
 
     const id = req.params.id;
 
+    const uid = req.uid;
+
     try {
 
         const hospital = await Hospital.findById( id );
@@ -55,14 +57,15 @@ const updateHospital = async(req, res = response) => {
 
         const changesHospital = {
             ...req.body,
-            user: req.uid
+            user: uid
         }
 
-        const hospitalActualizado = await Hospital.findByIdAndUpdate( id, changesHospital, { new: true } );
+        const hospitalUpdated = await Hospital.findByIdAndUpdate( id, changesHospital, { new: true } );
 
         res.json({
             ok: true,
-            hospital: hospitalActualizado
+            msg: 'Hospital actualizado',
+            hospital: hospitalUpdated
         });
 
     } catch (error) {
@@ -75,6 +78,8 @@ const updateHospital = async(req, res = response) => {
         });
 
     }
+
+
 }
 
 
