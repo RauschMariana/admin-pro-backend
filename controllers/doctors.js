@@ -68,11 +68,11 @@ const updateDoctor = async (req, res = response) => {
             user: req.uid
         }
 
-        const doctorActualizado = await Doctor.findByIdAndUpdate(id, changesDoctor, { new: true });
+        const doctorUpdated = await Doctor.findByIdAndUpdate(id, changesDoctor, { new: true });
 
         res.json({
             ok: true,
-            doctor: doctorActualizado
+            doctor: doctorUpdated
         });
 
     } catch (error) {

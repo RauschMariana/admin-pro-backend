@@ -47,57 +47,7 @@ const login = async (req, res = response) => {
     }
 }
 
-const googleSignIn = async (req, res = response) => {
-
-    try {
-        const { name, email, picture } = await googleVerify( req.body.token );
-
-        const userDB = await User.findOne({ email });
-
-        let user;
-
-        if (!userDB) {
-            user = new User({
-                name,
-                email,
-                password: '@@@',
-                img: picture,
-                google: true
-            });
-        } else {
-            user = userDB;
-            user.google = true;
-        }
-
-        // Guardar en DB
-        await user.save();
-
-        // Generar el JWT
-
-        const token = await generateJWT( user.id );
-
-        res.json({
-            ok: true,
-            name,
-            email,
-            picture,
-            token
-        });
-        
-
-    }
-
-    catch (error) {
-        res.status(400).json({
-            ok: false,
-            msg: 'Token de Google no es válido'
-        });
-    }
-    
-}
-
 
 module.exports = {
-    login,
-    googleSignIn
+    login
 }
