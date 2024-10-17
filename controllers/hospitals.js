@@ -1,7 +1,7 @@
 const { response } = require('express');
 const Hospital = require('../models/hospital');
 
-const getHospitals = async(req, res = response) => {
+const getHospitals = async( req, res = response ) => {
 
     const hospitals = await Hospital.find()
         .populate('user', 'name img');          
@@ -12,7 +12,7 @@ const getHospitals = async(req, res = response) => {
 }
 
 
-const createHospital = async(req, res = response) => { 
+const createHospital = async( req, res = response ) => { 
 
     const uid = req.uid;
 
@@ -38,7 +38,7 @@ const createHospital = async(req, res = response) => {
 }
 
 
-const updateHospital = async(req, res = response) => {
+const updateHospital = async( req, res = response ) => {
 
     const id = req.params.id;
 
@@ -74,7 +74,7 @@ const updateHospital = async(req, res = response) => {
 
         res.status(500).json({
             ok: false,
-            msg: 'Error inesperado'
+            msg: 'Error inesperado... hable con el administrador.'
         });
 
     }
@@ -83,7 +83,7 @@ const updateHospital = async(req, res = response) => {
 }
 
 
-const deleteHospital = async(req, res = response) => {
+const deleteHospital = async( req, res = response ) => {
 
     const id = req.params.id;
 
@@ -111,7 +111,7 @@ const deleteHospital = async(req, res = response) => {
 
         res.status(500).json({
             ok: false,
-            msg: 'Error inesperado'
+            msg: 'Error inesperado... hable con el administrador.'
         });
 
     }

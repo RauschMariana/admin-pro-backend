@@ -3,9 +3,9 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const { generateJWT } = require('../helpers/jwt');
 
-const getUsers = async (req, res) => {
+const getUsers = async ( req, res = response) => {
 
-    const from = Number(req.query.from) || 0;
+    const from = Number( req.query.from ) || 0;
 
     await Promise.all([
         User
@@ -30,7 +30,7 @@ const getUsers = async (req, res) => {
         });
 }
 
-const createUser = async (req, res = response) => {
+const createUser = async ( req, res = response ) => {
 
     const { email, password } = req.body;
 
@@ -69,7 +69,7 @@ const createUser = async (req, res = response) => {
     }
 }
 
-const updateUser = async (req, res = response) => {
+const updateUser = async ( req, res = response ) => {
 
     // TODO: validar token y comprobar si es el usuario correcto
 
@@ -117,7 +117,7 @@ const updateUser = async (req, res = response) => {
     }
 }
 
-const deleteUser = async (req, res = response) => { 
+const deleteUser = async ( req, res = response ) => { 
 
     const uid = req.params.id;
 
